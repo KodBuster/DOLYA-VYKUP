@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выкуп долей в квартирах, домах и земельных участках | ЯПомогаю.рф</title>
+<meta name="description" content="Выкупаем доли в квартирах по рыночной цене и помогаем собственникам стать единственными владельцами. Работаем по ст. 244–255 ГК РФ, каждая сделка удостоверяется нотариально.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Piazzolla:opsz,wght@8..30,500;8..30,600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink: {
+          900: '#0F172A',
+          800: '#1A2438',
+          700: '#2E3B58',
+          500: '#5B6780',
+          400: '#7E879B',
+          300: '#AEB5C3'
+        },
+        leaf: {
+          700: '#047857',
+          600: '#059669',
+          500: '#0CA678',
+          100: '#DCEFE4',
+          50:  '#F1F8F3'
+        },
+        paper: '#F6F7F4',
+        card:  '#FCFCFA',
+        mist:  '#EDF0EA',
+        line:  '#E2E6DF',
+        snow:  '#EDF1F6'
+      },
+      fontFamily: {
+        sans: ['"Golos Text"', 'system-ui', 'sans-serif'],
+        disp: ['Piazzolla', 'Georgia', 'serif']
+      },
+      maxWidth: { wrap: '76rem' }
+    }
+  }
+}
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+  section[id] { scroll-margin-top: 5.5rem; }
+
+  .h-disp { font-family: 'Piazzolla', Georgia, serif; font-weight: 600; letter-spacing: -0.015em; }
+
+  /* Аккордеон: анимация через grid-template-rows */
+  .faq-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .42s cubic-bezier(.22,1,.36,1);
+  }
+  .faq-item.open .faq-body { grid-template-rows: 1fr; }
+  .faq-body > div { overflow: hidden; }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+  .faq-chevron { transition: transform .42s cubic-bezier(.22,1,.36,1); }
+
+  /* Мобильное меню */
+  .mob-menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s cubic-bezier(.22,1,.36,1);
+  }
+  .mob-menu.open { grid-template-rows: 1fr; }
+  .mob-menu > div { overflow: hidden; }
+</style>
+</head>
+
+<body class="bg-paper text-ink-900 font-sans">
+
+<!-- ===================== HEADER ===================== -->
+<header class="fixed top-0 inset-x-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-line">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="flex items-center justify-between h-[4.25rem]">
+      <a href="#" class="flex items-center gap-2.5">
+        <span class="grid place-items-center w-9 h-9 rounded-lg bg-leaf-600 text-card font-bold text-lg leading-none">Я</span>
+        <span class="font-semibold text-[1.05rem] tracking-tight">ЯПомогаю<span class="text-leaf-600">.рф</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 text-[0.92rem] text-ink-700">
+        <a href="#help" class="hover:text-leaf-700 transition-colors">Как мы помогаем</a>
+        <a href="#process" class="hover:text-leaf-700 transition-colors">Процесс</a>
+        <a href="#objects" class="hover:text-leaf-700 transition-colors">С чем работаем</a>
+        <a href="#price" class="hover:text-leaf-700 transition-colors">Стоимость</a>
+        <a href="#faq" class="hover:text-leaf-700 transition-colors">Вопросы</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="tel:+78000000000" class="hidden md:flex items-center gap-2 text-[0.92rem] font-medium text-ink-900 hover:text-leaf-700 transition-colors">
+          <i data-lucide="phone" class="w-4 h-4"></i>8 800 000-00-00
+        </a>
+        <a href="#contact" class="hidden sm:inline-flex items-center rounded-lg bg-ink-900 text-snow px-4 py-2.5 text-[0.9rem] font-medium hover:bg-ink-700 transition-colors">Оценить долю</a>
+        <button id="burger" class="lg:hidden grid place-items-center w-10 h-10 rounded-lg border border-line" aria-label="Открыть меню">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobMenu" class="mob-menu lg:hidden">
+      <div>
+        <nav class="flex flex-col gap-1 py-3 border-t border-line text-[0.95rem]">
+          <a href="#help" class="px-2 py-2.5 rounded-md hover:bg-mist">Как мы помогаем</a>
+          <a href="#process" class="px-2 py-2.5 rounded-md hover:bg-mist">Процесс</a>
+          <a href="#objects" class="px-2 py-2.5 rounded-md hover:bg-mist">С чем работаем</a>
+          <a href="#price" class="px-2 py-2.5 rounded-md hover:bg-mist">Стоимость</a>
+          <a href="#faq" class="px-2 py-2.5 rounded-md hover:bg-mist">Вопросы</a>
+          <a href="#contact" class="mt-2 mb-2 inline-flex justify-center rounded-lg bg-leaf-600 text-card px-4 py-3 font-medium">Оценить долю</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="pt-[7.5rem] lg:pt-[9.5rem] pb-14 lg:pb-20">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+      <div class="lg:col-span-6">
+        <p class="text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-leaf-700 mb-5">Выкуп долевой недвижимости</p>
+        <h1 class="h-disp text-[2.35rem] leading-[1.08] sm:text-[3rem] lg:text-[3.5rem] mb-6">
+          Доля в квартире перестанет быть проблемой
+        </h1>
+        <p class="text-[0.97rem] lg:text-[1.04rem] leading-relaxed text-ink-700 max-w-[35rem] mb-3">
+          Выкупаем доли по рыночной цене и помогаем собственникам собрать квартиру целиком. Работаем с долями в домах, в квартирах, в комнатах, с земельными участками, гаражами и с коммерческой недвижимостью. Конфиденциально, законно, с нотариальным удостоверением каждой сделки. Аванс в день обращения, гасим долги, помощь в сборе документов, сложные случаи.
+        </p>
+        <p class="italic font-medium text-[0.86rem] lg:text-[0.92rem] text-[#F97316] mb-8">Помогаем клиентам, находящимся за рубежом.</p>
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-lg bg-leaf-600 text-card px-6 py-3.5 font-medium hover:bg-leaf-700 transition-colors">
+            Оценить мою долю
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#help" class="inline-flex items-center justify-center rounded-lg border border-ink-300 px-6 py-3.5 font-medium text-ink-900 hover:border-ink-900 transition-colors">
+            Как это работает
+          </a>
+        </div>
+        <p class="text-[0.85rem] text-ink-500">Первая консультация бесплатна и ни к чему не обязывает.</p>
+      </div>
+
+      <div class="lg:col-span-6 lg:pl-6">
+        <figure class="relative">
+          <img
+            src="images/отзыв_Доли_1-1000х750.jpg"
+            alt="Женщина около сорока лет сидит на кухне с закрытыми глазами и лёгкой улыбкой, рядом стопка подписанных документов и чашка кофе. Мягкий дневной свет, атмосфера облегчения: вопрос с долей решён."
+            class="w-full rounded-2xl object-cover aspect-[4/5] lg:aspect-[5/5.4]">
+          <figcaption class="absolute bottom-4 left-4 right-4 sm:right-auto bg-card/95 rounded-xl px-4 py-3 border border-line">
+            <p class="text-[0.85rem] font-medium text-ink-900">Каждая сделка удостоверяется нотариусом</p>
+            <p class="text-[0.78rem] text-ink-500 mt-0.5">Расчёты через депозит нотариуса, аккредитив или наличными</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Trust-бар -->
+    <div class="mt-14 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 border-y border-line divide-y sm:divide-y-0 lg:divide-x divide-line">
+      <div class="py-5 lg:px-6 first:pl-0">
+        <p class="font-semibold text-[0.95rem]">Работаем в рамках статей 244–255 ГК РФ</p>
+        <p class="text-[0.85rem] text-ink-500 mt-1">Конфиденциально, в случае необходимости подпишем соглашение о конфиденциальности (NDA)</p>
+      </div>
+      <div class="py-5 lg:px-6">
+        <p class="font-semibold text-[0.95rem]">Нотариальная форма</p>
+        <p class="text-[0.85rem] text-ink-500 mt-1">Сделки с долями недвижимости удостоверяются нотариально</p>
+      </div>
+      <div class="py-5 lg:px-6">
+        <p class="font-semibold text-[0.95rem]">Аванс в день обращения</p>
+        <p class="text-[0.85rem] text-ink-500 mt-1">Выдаём аванс в день обращения, помогаем оплатить долги ЖКХ и другие</p>
+      </div>
+      <div class="py-5 lg:px-6">
+        <p class="font-semibold text-[0.95rem]">Любая форма оплаты</p>
+        <p class="text-[0.85rem] text-ink-500 mt-1">Оплата через Сбербанк или другие банки. Возможна оплата наличными</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== БОЛИ ===================== -->
+<section id="pain" class="py-16 lg:py-24 bg-mist">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Знакомая ситуация</h2>
+        <p class="font-medium text-ink-900 text-[1.05rem] mb-3">Решим любой вопрос в долевой недвижимости</p>
+        <p class="text-ink-700 leading-relaxed text-[0.98rem]">
+          Любая из этих ситуаций решается законными инструментами Гражданского кодекса. Ниже рассказываем, какими именно.
+        </p>
+      </div>
+
+      <div class="lg:col-span-8">
+        <ol class="border-t border-line">
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">01</span>
+            <div>
+              <p class="font-semibold">Развод позади, но квартира всё ещё общая</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">Жить вместе невозможно, а делить так и не начали.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">02</span>
+            <div>
+              <p class="font-semibold">Наследство разделили на троих, и никто не может ни жить, ни продать</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">У каждого свои планы на квартиру, и они не совпадают.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">03</span>
+            <div>
+              <p class="font-semibold">Сособственник сменил замки и не пускает вас в квартиру</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">Формально у вас есть право, фактически вы лишены жилья.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">04</span>
+            <div>
+              <p class="font-semibold">Вашу долю предлагают купить за треть рыночной цены</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">Скупщики давят на то, что «долю всё равно никто не возьмёт».</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">05</span>
+            <div>
+              <p class="font-semibold">Вы годами платите коммунальные за жильё, в котором не живёте</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">Доля приносит только расходы и налоги, а не пользу.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-4 py-5 border-b border-line">
+            <span class="text-[0.85rem] font-semibold text-leaf-700 pt-0.5">06</span>
+            <div>
+              <p class="font-semibold">Каждая попытка договориться с совладельцем заходит в тупик</p>
+              <p class="text-[0.9rem] text-ink-500 mt-1">Переговоры превращаются в ссоры, решение не приближается.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="mt-6 text-[0.95rem] text-ink-700">
+          Любая из этих ситуаций решается законными инструментами Гражданского кодекса. Ниже рассказываем, какими именно.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== КАК МЫ ПОМОГАЕМ ===================== -->
+<section id="help" class="py-16 lg:py-24">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="max-w-[42rem] mb-10 lg:mb-14">
+      <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Как мы помогаем</h2>
+      <p class="text-ink-700 leading-relaxed">
+        Квалифицированные специалисты помогут вам решить вопросы с долевой недвижимостью с любой стороны: поможем продать долю по рыночной цене или выкупим её у вас, представим ваши интересы в переговорах с другими собственниками.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-5">
+      <!-- Сценарий 1 -->
+      <article class="rounded-2xl bg-card border border-line p-7 lg:p-9">
+        <p class="text-[0.8rem] font-semibold uppercase tracking-[0.13em] text-leaf-700 mb-3">Сценарий 1</p>
+        <h3 class="h-disp text-[1.5rem] lg:text-[1.7rem] leading-tight mb-4">Хочу продать свою долю</h3>
+        <p class="text-[0.95rem] text-ink-700 leading-relaxed mb-6">
+          Оцениваем долю по рынку, а не «как за неликвид». Сначала предлагаем выкуп сособственникам: по статье 250 ГК РФ у них преимущественное право покупки. Если в течение месяца они не выкупают долю, продаём её третьему лицу на тех же условиях либо выкупаем сами.
+        </p>
+        <ul class="space-y-3 text-[0.93rem]">
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-600 shrink-0 mt-0.5"></i><span>Рыночная оценка доли с учётом дисконта и особенностей объекта</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-600 shrink-0 mt-0.5"></i><span>Юридически корректное извещение сособственников через нотариуса</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-600 shrink-0 mt-0.5"></i><span>Нотариальная сделка и безопасные расчёты: депозит нотариуса или аккредитив</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-600 shrink-0 mt-0.5"></i><span>Возможен срочный выкуп вашей доли нами после проверки документов</span></li>
+        </ul>
+      </article>
+
+      <!-- Сценарий 2 -->
+      <article class="rounded-2xl bg-ink-900 text-snow p-7 lg:p-9">
+        <p class="text-[0.8rem] font-semibold uppercase tracking-[0.13em] text-leaf-500 mb-3">Сценарий 2</p>
+        <h3 class="h-disp text-[1.5rem] lg:text-[1.7rem] leading-tight mb-4 text-snow">Хочу стать единственным собственником</h3>
+        <p class="text-[0.95rem] text-ink-300 leading-relaxed mb-6">
+          Берём переговоры с совладельцами на себя: считаем справедливую цену, готовим предложение, снимаем эмоции из диалога. Если договориться добровольно не получается, оцениваем судебную перспективу по статье 252 ГК РФ.
+        </p>
+        <ul class="space-y-3 text-[0.93rem] text-snow/90">
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-500 shrink-0 mt-0.5"></i><span>Переговоры и структурирование добровольного выкупа долей</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-500 shrink-0 mt-0.5"></i><span>Судебный выкуп незначительной доли с выплатой компенсации (п. 4 ст. 252 ГК РФ)</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-500 shrink-0 mt-0.5"></i><span>Судебная оценочная экспертиза для определения стоимости доли</span></li>
+          <li class="flex gap-2.5"><i data-lucide="check" class="w-[1.1rem] h-[1.1rem] text-leaf-500 shrink-0 mt-0.5"></i><span>Сопровождение до записи в ЕГРН о вашем единоличном праве</span></li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- Честная юридическая оговорка -->
+    <div class="mt-5 rounded-2xl border border-line bg-leaf-50 p-6 lg:p-7">
+      <div class="flex gap-4 items-start">
+        <i data-lucide="scale" class="w-6 h-6 text-leaf-700 shrink-0 mt-0.5"></i>
+        <div>
+          <p class="font-semibold mb-1.5">Что важно знать про принудительный выкуп через суд</p>
+          <p class="text-[0.92rem] text-ink-700 leading-relaxed max-w-[52rem]">
+            Суд может обязать сособственника продать долю без его согласия только при одновременном выполнении трёх условий из пункта 4 статьи 252 ГК РФ: доля незначительна, её нельзя реально выделить и у владельца нет существенного интереса в использовании имущества. Мы оцениваем все три условия до подачи иска и честно говорим, есть ли судебная перспектива. Если её нет, мы не возьмём дело «ради процесса».
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ПРЕИМУЩЕСТВА ===================== -->
+<section id="benefits" class="py-16 lg:py-24 bg-snow">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+      <div class="lg:col-span-5 lg:sticky lg:top-28">
+        <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Почему с нами надёжно</h2>
+        <p class="text-ink-700 leading-relaxed mb-8">
+          Долевая собственность держится на нюансах: одно пропущенное извещение или ошибка в договоре, и сделку можно оспорить. Мы занимаемся этим направлением с 2003 года и доводим каждое дело до записи в реестре.
+        </p>
+        <img
+          src="images/Почему с нами надёжно_1200х900.jpg"
+          alt="Юрист и клиент обсуждают документы за столом в светлом современном офисе. На столе развёрнут план квартиры и договор купли-продажи доли. Атмосфера доверия и спокойного профессионализма."
+          class="w-full rounded-2xl object-cover aspect-[4/3]">
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="grid sm:grid-cols-2 border-t border-l border-line">
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="scale" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Узкая специализация</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Занимаемся долевой собственностью, а не «всеми вопросами сразу». Знаем практику судов по ст. 250 и 252 ГК РФ.</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="message-square-warning" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Честный прогноз до договора</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Если судебной перспективы нет или цена ожиданий завышена, скажем об этом на первой консультации.</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="landmark" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Нотариус и безопасные деньги</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Сделка удостоверяется нотариально, расчёты идут через депозит нотариуса или аккредитив, или наличными.</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="handshake" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Переговоры берём на себя</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Вам не нужно встречаться с конфликтным сособственником. Все контакты ведёт юрист.</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="file-text" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Стоимость зафиксирована в договоре</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Цена услуг и объём работ прописываются заранее. Никаких «доплат по ходу дела».</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line">
+            <i data-lucide="badge-check" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Результат: запись в ЕГРН</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed">Дело закрывается не «решением суда» и не «подписанным договором», а регистрацией права и полным расчётом.</p>
+          </div>
+          <div class="p-6 lg:p-7 border-b border-r border-line sm:col-span-2">
+            <i data-lucide="shield-check" class="w-5 h-5 text-leaf-700 mb-3.5"></i>
+            <p class="font-semibold mb-1.5">Работаем со сложными объектами</p>
+            <p class="text-[0.88rem] text-ink-500 leading-relaxed max-w-[34rem]">Прописанные жильцы, несовершеннолетние собственники, ипотека, аресты и обременения: проверяем всё до сделки и предлагаем оптимальный путь решения.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ПРОЦЕСС ===================== -->
+<section id="process" class="py-16 lg:py-24">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="max-w-[42rem] mb-10 lg:mb-14">
+      <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Как проходит выкуп доли</h2>
+      <p class="text-ink-700 leading-relaxed">Шесть этапов от первого звонка до записи в ЕГРН. На каждом этапе вы понимаете, что происходит и что будет дальше.</p>
+    </div>
+
+    <ol class="relative max-w-[50rem]">
+      <span class="absolute left-[1.18rem] top-3 bottom-3 w-px bg-line" aria-hidden="true"></span>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-ink-900 text-snow text-[0.85rem] font-semibold z-10">1</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Консультация и анализ документов</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">Изучаем выписку из ЕГРН, основание права собственности, состав сособственников и историю объекта. Это бесплатно.</p>
+        </div>
+      </li>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-ink-900 text-snow text-[0.85rem] font-semibold z-10">2</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Оценка доли и выбор стратегии</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">Считаем рыночную стоимость доли и письменно фиксируем план: добровольная сделка, переговоры о выкупе или суд по ст. 252 ГК РФ.</p>
+        </div>
+      </li>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-ink-900 text-snow text-[0.85rem] font-semibold z-10">3</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Извещение сособственников</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">При продаже доли направляем письменное извещение с ценой и условиями: статья 250 ГК РФ даёт совладельцам месяц на преимущественную покупку.</p>
+        </div>
+      </li>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-ink-900 text-snow text-[0.85rem] font-semibold z-10">4</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Переговоры или подготовка иска</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">Согласовываем условия сделки со всеми сторонами. Если добровольный путь закрыт, готовим иск, доказательства и оценочную экспертизу.</p>
+        </div>
+      </li>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-ink-900 text-snow text-[0.85rem] font-semibold z-10">5</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Нотариальная сделка или судебный процесс</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">Сопровождаем подписание у нотариуса и закладку денег на депозит. В судебном сценарии представляем ваши интересы во всех инстанциях.</p>
+        </div>
+      </li>
+
+      <li class="relative grid grid-cols-[2.5rem_1fr] gap-5">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-leaf-600 text-card text-[0.85rem] font-semibold z-10">6</span>
+        <div class="pt-1.5">
+          <p class="font-semibold text-[1.05rem]">Регистрация и расчёты</p>
+          <p class="text-[0.92rem] text-ink-500 leading-relaxed mt-1.5">Право переходит после регистрации в Росреестре, деньги раскрываются с депозита или аккредитива или вы получаете их наличными. Вы получаете выписку из ЕГРН и закрывающие документы.</p>
+        </div>
+      </li>
+    </ol>
+
+    <p class="mt-9 text-[0.88rem] text-ink-500 max-w-[50rem]">
+      Ориентир по срокам: добровольная сделка обычно занимает от одного до двух месяцев с учётом срока на преимущественное право. Судебный выкуп длится от четырёх-шести месяцев и дольше в зависимости от загрузки суда и поведения сторон. Точные сроки заранее гарантировать невозможно, и мы этого не делаем.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== ОБЪЕКТЫ ===================== -->
+<section id="objects" class="py-16 lg:py-24 bg-mist">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="max-w-[42rem] mb-10 lg:mb-14">
+      <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">С какими объектами работаем</h2>
+      <p class="text-ink-700 leading-relaxed">Чаще всего к нам приходят с долями в квартирах. Но закон о долевой собственности один, поэтому помогаем и с землёй, гаражами, частными домами. У каждого объекта свои честные ограничения.</p>
+    </div>
+
+    <div class="rounded-2xl bg-card border border-line p-7 lg:p-9 mb-5">
+      <div class="grid lg:grid-cols-12 gap-7 items-start">
+        <div class="lg:col-span-8">
+          <div class="flex items-center gap-3 mb-3">
+            <i data-lucide="building-2" class="w-6 h-6 text-leaf-700"></i>
+            <h3 class="h-disp text-[1.45rem]">Доли в квартирах</h3>
+            <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-leaf-700 bg-leaf-100 rounded-full px-3 py-1">основная практика</span>
+          </div>
+          <p class="text-[0.95rem] text-ink-700 leading-relaxed mb-4">
+            Развод, наследство, приватизация, выкупленные скупщиками доли. Помогаем продать долю по рыночной цене, проводим переговоры по выкупу доли у других собственников, взыскиваем компенсацию или принудительно выкупаем долю через суд.
+          </p>
+          <p class="text-[0.88rem] text-ink-500 leading-relaxed">
+            Честно об ограничениях: выделить долю в квартире «в натуре» почти никогда нельзя, отдельный вход и санузел в обычной квартире не сделать. Поэтому реальные инструменты: продажа, выкуп, определение порядка пользования и денежная компенсация. С 2022 года закон также запрещает дробить жильё на доли менее 6 кв. м, кроме наследства, приватизации и материнского капитала.
+          </p>
+        </div>
+        <div class="lg:col-span-4">
+          <ul class="space-y-2.5 text-[0.9rem] border-t lg:border-t-0 lg:border-l border-line pt-5 lg:pt-0 lg:pl-7">
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Доли после развода и раздела имущества</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Наследственные доли нескольких очередей</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Доли из приватизации 90-х и 2000-х</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Защита от профессиональных скупщиков долей</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <article class="rounded-2xl bg-card border border-line p-6 lg:p-7">
+        <i data-lucide="map" class="w-6 h-6 text-leaf-700 mb-3.5"></i>
+        <h3 class="font-semibold text-[1.05rem] mb-2">Земельные участки</h3>
+        <p class="text-[0.88rem] text-ink-500 leading-relaxed">
+          Здесь, в отличие от квартир, реальный раздел иногда возможен: если участок делим и новые части не меньше минимальных размеров по местным правилам землепользования. Для земель сельхозназначения действует отдельный порядок оборота долей. Проверяем делимость до выбора стратегии.
+        </p>
+      </article>
+      <article class="rounded-2xl bg-card border border-line p-6 lg:p-7">
+        <i data-lucide="warehouse" class="w-6 h-6 text-leaf-700 mb-3.5"></i>
+        <h3 class="font-semibold text-[1.05rem] mb-2">Гаражи и машино-места</h3>
+        <p class="text-[0.88rem] text-ink-500 leading-relaxed">
+          Гаражный бокс физически не разделить, поэтому работают продажа доли с соблюдением ст. 250 ГК РФ, выкуп у совладельца или компенсация через суд. Отдельно проверяем оформление: у многих гаражей право собственности зарегистрировано с ошибками или не зарегистрировано вовсе.
+        </p>
+      </article>
+      <article class="rounded-2xl bg-card border border-line p-6 lg:p-7">
+        <i data-lucide="home" class="w-6 h-6 text-leaf-700 mb-3.5"></i>
+        <h3 class="font-semibold text-[1.05rem] mb-2">Частные дома</h3>
+        <p class="text-[0.88rem] text-ink-500 leading-relaxed">
+          Дом с отдельными входами иногда можно разделить в натуре вместе с участком: это альтернатива выкупу. Если раздел технически невозможен, действуем как с квартирой: переговоры, выкуп, при незначительной доле компенсация по ст. 252 ГК РФ.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== СТОИМОСТЬ ===================== -->
+<section id="price" class="py-16 lg:py-24">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="max-w-[42rem] mb-10 lg:mb-14">
+      <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Стоимость услуг</h2>
+      <p class="text-ink-700 leading-relaxed">Точную цену называем после анализа документов и фиксируем в договоре. Нотариальный тариф, госпошлины и судебная экспертиза оплачиваются отдельно по фактическим расценкам.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-5 items-stretch">
+      <article class="rounded-2xl bg-card border border-line p-7 lg:p-8 flex flex-col">
+        <h3 class="font-semibold text-[1.1rem]">Оценка и план</h3>
+        <p class="text-[0.88rem] text-ink-500 mt-1 mb-5">Когда нужно понять, что делать с долей</p>
+        <ul class="space-y-2.5 text-[0.9rem] text-ink-700 mb-7">
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Анализ выписки ЕГРН и документов-оснований</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Рыночная оценка стоимости доли</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Письменное заключение о перспективах</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>План действий: сделка, переговоры или суд</li>
+        </ul>
+        <a href="#contact" class="mt-auto inline-flex justify-center rounded-lg border border-ink-300 px-5 py-3 font-medium hover:border-ink-900 transition-colors">Заказать оценку</a>
+      </article>
+
+      <article class="rounded-2xl bg-ink-900 text-snow p-7 lg:p-8 flex flex-col relative">
+        <span class="absolute -top-3 left-7 text-[0.72rem] font-semibold uppercase tracking-wider bg-leaf-600 text-card rounded-full px-3 py-1">выбирают чаще всего</span>
+        <h3 class="font-semibold text-[1.1rem]">Сделка под ключ</h3>
+        <p class="text-[0.88rem] text-ink-300 mt-1 mb-5">Добровольная продажа или выкуп доли</p>
+        <ul class="space-y-2.5 text-[0.9rem] text-snow/90 mb-7">
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-500 shrink-0 mt-1"></i>Всё из пакета «Оценка и план»</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-500 shrink-0 mt-1"></i>Извещение сособственников по ст. 250 ГК РФ</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-500 shrink-0 mt-1"></i>Переговоры с совладельцами и покупателями</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-500 shrink-0 mt-1"></i>Договор, нотариальная сделка, безопасные расчёты</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-500 shrink-0 mt-1"></i>Регистрация перехода права в Росреестре</li>
+        </ul>
+        <a href="#contact" class="mt-auto inline-flex justify-center rounded-lg bg-leaf-600 text-card px-5 py-3 font-medium hover:bg-leaf-700 transition-colors">Обсудить сделку</a>
+      </article>
+
+      <article class="rounded-2xl bg-card border border-line p-7 lg:p-8 flex flex-col">
+        <h3 class="font-semibold text-[1.1rem]">Судебный выкуп</h3>
+        <p class="text-[0.88rem] text-ink-500 mt-1 mb-5">Когда договориться невозможно</p>
+        <ul class="space-y-2.5 text-[0.9rem] text-ink-700 mb-7">
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Оценка судебной перспективы по п. 4 ст. 252 ГК РФ</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Иск, доказательственная база, оценочная экспертиза</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Представительство во всех судебных инстанциях</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-leaf-600 shrink-0 mt-1"></i>Исполнение решения и регистрация права</li>
+        </ul>
+        <a href="#contact" class="mt-auto inline-flex justify-center rounded-lg border border-ink-300 px-5 py-3 font-medium hover:border-ink-900 transition-colors">Оценить перспективу</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== РЕЗУЛЬТАТЫ И ОТЗЫВЫ ===================== -->
+<section id="cases" class="py-16 lg:py-24 bg-snow">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-8 items-end mb-10 lg:mb-14">
+      <div class="lg:col-span-7">
+        <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Результаты, которыми мы дорожим</h2>
+        <p class="text-ink-700 leading-relaxed">
+          За более чем двадцать лет практики мы сопроводили больше тысячи сделок с долями, и примерно восемь споров из десяти закрыли без суда, переговорами. Ни одна сделка не прошла мимо нотариуса. Это не гарантия результата в вашем деле, но это наш способ работать.
+        </p>
+      </div>
+      <div class="lg:col-span-5">
+        <dl class="grid grid-cols-3 divide-x divide-line border-y border-line">
+          <div class="py-4 pr-4">
+            <dt class="text-[0.78rem] text-ink-500">лет практики</dt>
+            <dd class="font-semibold text-[1.35rem] h-disp">20+</dd>
+          </div>
+          <div class="py-4 px-4">
+            <dt class="text-[0.78rem] text-ink-500">сделок с долями</dt>
+            <dd class="font-semibold text-[1.35rem] h-disp">1000+</dd>
+          </div>
+          <div class="py-4 pl-4">
+            <dt class="text-[0.78rem] text-ink-500">споров без суда</dt>
+            <dd class="font-semibold text-[1.35rem] h-disp">8 из 10</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <figure class="rounded-2xl bg-card border border-line overflow-hidden flex flex-col">
+        <img
+          src="images/отзыв_Доли_1-1000х750.jpg"
+          alt="Женщина тридцати семи лет сидит на кухне с закрытыми глазами и улыбкой, рядом стопка подписанных документов. Светлое помещение, ощущение завершённого дела."
+          class="w-full aspect-[4/3] object-cover">
+        <figcaption class="p-6 flex flex-col grow">
+          <blockquote class="text-[0.93rem] leading-relaxed text-ink-700 grow">
+            «После развода бывший муж три года отказывался обсуждать квартиру. Юристы взяли переговоры на себя, и через два месяца мы подписали сделку у нотариуса. Я продала долю по нормальной цене, а не за копейки скупщикам».
+          </blockquote>
+          <p class="mt-4 font-semibold text-[0.92rem]">Елена, 37 лет</p>
+          <p class="text-[0.82rem] text-ink-500">Продажа 1/2 доли в двухкомнатной квартире</p>
+        </figcaption>
+      </figure>
+
+      <figure class="rounded-2xl bg-card border border-line overflow-hidden flex flex-col">
+        <img
+          src="images/отзыв_Доли_2-1000х750.jpg"
+          alt="Мужчина пятидесяти лет стоит у окна в домашнем кабинете с удовлетворённым и спокойным выражением лица. Дневной свет из окна, ощущение завершённого дела."
+          class="w-full aspect-[4/3] object-cover">
+        <figcaption class="p-6 flex flex-col grow">
+          <blockquote class="text-[0.93rem] leading-relaxed text-ink-700 grow">
+            «Унаследовал квартиру вместе с двумя дальними родственниками. Договориться сами не смогли. Мне сразу честно сказали: по одной доле есть судебная перспектива, по второй лучше выкуп. Так и сделали. Теперь квартира полностью моя».
+          </blockquote>
+          <p class="mt-4 font-semibold text-[0.92rem]">Сергей, 50 лет</p>
+          <p class="text-[0.82rem] text-ink-500">Выкуп двух наследственных долей, одна через суд</p>
+        </figcaption>
+      </figure>
+
+      <figure class="rounded-2xl bg-card border border-line overflow-hidden flex flex-col">
+        <img
+          src="images/отзыв_Доли_3-1000х750.jpg"
+          alt="Семейная пара старше сорока лет стоит в гостиной своей квартиры. Тёплый дневной свет, уютная обстановка: квартира теперь полностью в их собственности."
+          class="w-full aspect-[4/3] object-cover">
+        <figcaption class="p-6 flex flex-col grow">
+          <blockquote class="text-[0.93rem] leading-relaxed text-ink-700 grow">
+            «Незнакомый человек купил 1/16 нашей квартиры у родственника и начал требовать деньги за «спокойную жизнь». Через суд его долю признали незначительной, мы выплатили компенсацию по экспертизе и закрыли вопрос навсегда».
+          </blockquote>
+          <p class="mt-4 font-semibold text-[0.92rem]">Марина и Андрей, 40+</p>
+          <p class="text-[0.82rem] text-ink-500">Принудительный выкуп 1/16 доли по п. 4 ст. 252 ГК РФ</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="mt-7 text-[0.82rem] text-ink-500 max-w-[50rem]">
+      Отзывы публикуются с согласия клиентов, имена изменены по их просьбе. Исход каждого дела индивидуален и зависит от обстоятельств: прошлые результаты не гарантируют аналогичного результата в вашей ситуации.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="py-16 lg:py-24">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="h-disp text-[1.9rem] lg:text-[2.4rem] leading-[1.12] mb-4">Частые вопросы</h2>
+        <p class="text-ink-700 leading-relaxed text-[0.95rem]">Отвечаем так, как объяснили бы близкому человеку: без канцелярита, но со ссылками на закон.</p>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="border-t border-line">
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Можно ли продать долю без согласия других собственников?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Да. Согласие сособственников на продажу не требуется, но у них есть преимущественное право покупки по статье 250 ГК РФ. Вы обязаны письменно известить их о цене и условиях продажи. Если в течение месяца никто из них долю не выкупит, вы вправе продать её любому лицу, но строго на тех же условиях, что были в извещении.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Что будет, если продать долю без извещения совладельцев?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Скорее всего, сделка просто не состоится: нотариус не удостоверит договор без подтверждения извещения. Если же нарушение всё-таки произошло, обойдённый сособственник в течение трёх месяцев может через суд требовать перевода на себя прав и обязанностей покупателя (п. 3 ст. 250 ГК РФ). Поэтому извещение мы оформляем безупречно, обычно через нотариуса.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Можно ли заставить сособственника продать его долю?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Только через суд и только в особых случаях. Пункт 4 статьи 252 ГК РФ позволяет суду обязать выплатить собственнику компенсацию вместо доли без его согласия, если одновременно выполнены три условия: доля незначительна, её невозможно реально выделить, и у владельца нет существенного интереса в использовании имущества. Например, 1/12 в однокомнатной квартире, где владелец доли никогда не жил и имеет другое жильё. Если хотя бы одно условие не выполняется, принудительный выкуп невозможен, и мы скажем об этом честно на этапе оценки.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Правда ли, что теперь нельзя продавать «микродоли»?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  С сентября 2022 года в Жилищном кодексе действует правило: нельзя дробить жилое помещение так, чтобы на долю каждого собственника приходилось меньше 6 квадратных метров общей площади. Исключения: доли, возникающие при наследовании, приватизации и использовании материнского капитала. Существующие микродоли при этом не «сгорают»: ими по-прежнему можно распоряжаться, и именно такие доли чаще всего выкупаются через суд как незначительные.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Зачем нужен нотариус и сколько это стоит?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Сделки по отчуждению доли в праве собственности на недвижимость по общему правилу подлежат обязательному нотариальному удостоверению. Это требование закона, а не наша прихоть, и оно защищает обе стороны: нотариус проверяет дееспособность, извещения и чистоту сделки. Тариф складывается из федеральной и региональной частей и зависит от цены договора; точную сумму для вашего региона и объекта мы посчитаем на консультации.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Отличается ли выкуп доли в земельном участке или гараже?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Базовые правила те же: статьи 244–252 ГК РФ. Но у земли есть особенность: участок иногда можно реально разделить, если он делим и новые участки не меньше минимальных размеров по правилам землепользования и застройки. Для земель сельхозназначения действует отдельный закон об обороте долей. Гараж, наоборот, физически неделим, поэтому там работают продажа, выкуп и компенсация. Для дома с участком возможен раздел в натуре при наличии отдельных входов.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-line">
+            <button class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left">
+              <span class="font-semibold text-[1rem]">Сколько времени займёт решение моего вопроса?</span>
+              <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-ink-500 shrink-0"></i>
+            </button>
+            <div class="faq-body">
+              <div>
+                <p class="pb-6 text-[0.93rem] text-ink-700 leading-relaxed max-w-[42rem]">
+                  Честный ответ: заранее точно сказать нельзя, и любой, кто называет вам гарантированный срок, лукавит. Ориентиры из практики: добровольная сделка занимает один-два месяца с учётом месячного срока на преимущественное право, судебный выкуп длится от четырёх-шести месяцев до года и дольше, особенно с экспертизой и апелляцией. На консультации мы дадим реалистичный прогноз именно по вашей ситуации.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-7 text-[0.95rem] font-medium text-[#F97316] leading-relaxed">
+            К сожалению, в долевой недвижимости очень много разных вопросов. Напишите нам, и мы ответим и на ваш вопрос тоже.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ФИНАЛЬНЫЙ CTA + ФОРМА ===================== -->
+<section id="contact" class="py-16 lg:py-24 bg-ink-900 text-snow">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+      <div class="lg:col-span-6">
+        <h2 class="h-disp text-[2rem] lg:text-[2.6rem] leading-[1.1] mb-5 text-snow">Расскажите о вашей доле. Дальше мы возьмём всё на себя</h2>
+        <p class="text-ink-300 leading-relaxed mb-8 max-w-[32rem]">
+          Оставьте заявку, и юрист по долевой собственности свяжется с вами в течение рабочего дня. Изучим документы, посчитаем стоимость доли и честно скажем, какой путь подходит именно вам.
+        </p>
+        <img
+          src="images/ФинальныйБлокДоли_1200х800.jpg"
+          alt="Крупный план: руки человека подписывают договор купли-продажи доли перьевой ручкой за столом на фоне светлого окна. В кадре только руки, документы и ручка. Атмосфера завершённости важного жизненного этапа."
+          class="w-full rounded-2xl object-cover aspect-[8/5] hidden lg:block">
+      </div>
+
+      <div class="lg:col-span-6">
+        <div class="rounded-2xl bg-card text-ink-900 p-7 lg:p-9">
+
+          <form id="leadForm" novalidate>
+            <h3 class="h-disp text-[1.4rem] mb-1.5">Бесплатная консультация</h3>
+            <p class="text-[0.88rem] text-ink-500 mb-6">Ответим на вопросы и дадим первичную оценку без оплаты и обязательств.</p>
+
+            <div class="space-y-4">
+              <div>
+                <label for="f-name" class="block text-[0.85rem] font-medium mb-1.5">Ваше имя</label>
+                <input id="f-name" name="name" type="text" required placeholder="Как к вам обращаться"
+                  class="w-full rounded-lg border border-line bg-paper px-4 py-3 text-[0.95rem] outline-none focus:border-leaf-600 transition-colors">
+              </div>
+              <div>
+                <label for="f-phone" class="block text-[0.85rem] font-medium mb-1.5">Телефон</label>
+                <input id="f-phone" name="phone" type="tel" required placeholder="+7 (___) ___-__-__"
+                  class="w-full rounded-lg border border-line bg-paper px-4 py-3 text-[0.95rem] outline-none focus:border-leaf-600 transition-colors">
+              </div>
+              <div>
+                <label for="f-object" class="block text-[0.85rem] font-medium mb-1.5">Объект</label>
+                <select id="f-object" name="object"
+                  class="w-full rounded-lg border border-line bg-paper px-4 py-3 text-[0.95rem] outline-none focus:border-leaf-600 transition-colors">
+                  <option>Доля в квартире</option>
+                  <option>Доля в частном доме</option>
+                  <option>Доля в земельном участке</option>
+                  <option>Доля в гараже или машино-месте</option>
+                  <option>Пока не знаю, нужна консультация</option>
+                </select>
+              </div>
+              <div>
+                <label for="f-msg" class="block text-[0.85rem] font-medium mb-1.5">Коротко о ситуации <span class="text-ink-400 font-normal">(необязательно)</span></label>
+                <textarea id="f-msg" name="message" rows="3" placeholder="Например: 1/3 доли в квартире после наследства, второй собственник на контакт не идёт"
+                  class="w-full rounded-lg border border-line bg-paper px-4 py-3 text-[0.95rem] outline-none focus:border-leaf-600 transition-colors resize-none"></textarea>
+              </div>
+
+              <label class="flex items-start gap-2.5 text-[0.8rem] text-ink-500 leading-snug cursor-pointer">
+                <input id="f-agree" type="checkbox" required class="mt-0.5 w-4 h-4 accent-[#059669]">
+                <span>Соглашаюсь на обработку персональных данных и ознакомлен(а) с политикой конфиденциальности</span>
+              </label>
+
+              <p id="formError" class="hidden text-[0.85rem] text-red-700"></p>
+
+              <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-leaf-600 text-card px-6 py-3.5 font-medium hover:bg-leaf-700 transition-colors">
+                Получить консультацию
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <p class="text-center text-[0.78rem] text-ink-400">Звоним только по делу, ничего не навязываем</p>
+            </div>
+          </form>
+
+          <div id="formSuccess" class="hidden text-center py-8">
+            <span class="mx-auto mb-5 grid place-items-center w-14 h-14 rounded-full bg-leaf-100">
+              <i data-lucide="check" class="w-7 h-7 text-leaf-700"></i>
+            </span>
+            <h3 class="h-disp text-[1.45rem] mb-2.5">Заявка отправлена</h3>
+            <p class="text-[0.95rem] text-ink-700 leading-relaxed max-w-[24rem] mx-auto">
+              Спасибо! Юрист по долевой собственности свяжется с вами в течение рабочего дня. А пока можете подготовить выписку из ЕГРН: с ней первая консультация будет предметнее.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-ink-900 text-ink-300 border-t border-ink-700">
+  <div class="max-w-wrap mx-auto px-5 lg:px-8 py-12">
+    <div class="grid md:grid-cols-12 gap-8">
+      <div class="md:col-span-5">
+        <a href="#" class="flex items-center gap-2.5 mb-4">
+          <span class="grid place-items-center w-9 h-9 rounded-lg bg-leaf-600 text-card font-bold text-lg leading-none">Я</span>
+          <span class="font-semibold text-[1.05rem] tracking-tight text-snow">ЯПомогаю<span class="text-leaf-500">.рф</span></span>
+        </a>
+        <p class="text-[0.88rem] leading-relaxed max-w-[24rem]">
+          Юридическая помощь в вопросах долевой собственности: выкуп и продажа долей в квартирах, комнатах, домах, земельных участках, гаражах и коммерческой недвижимости.
+        </p>
+      </div>
+
+      <div class="md:col-span-3">
+        <p class="font-semibold text-snow text-[0.92rem] mb-3.5">Навигация</p>
+        <nav class="flex flex-col gap-2.5 text-[0.88rem]">
+          <a href="#help" class="hover:text-snow transition-colors">Как мы помогаем</a>
+          <a href="#process" class="hover:text-snow transition-colors">Процесс выкупа</a>
+          <a href="#price" class="hover:text-snow transition-colors">Стоимость услуг</a>
+          <a href="#faq" class="hover:text-snow transition-colors">Частые вопросы</a>
+        </nav>
+      </div>
+
+      <div class="md:col-span-4">
+        <p class="font-semibold text-snow text-[0.92rem] mb-3.5">Контакты</p>
+        <div class="flex flex-col gap-2.5 text-[0.88rem]">
+          <a href="tel:+78000000000" class="flex items-center gap-2 hover:text-snow transition-colors"><i data-lucide="phone" class="w-4 h-4"></i>8 800 000-00-00</a>
+          <a href="mailto:dolya@yapomogayu.rf" class="flex items-center gap-2 hover:text-snow transition-colors"><i data-lucide="mail" class="w-4 h-4"></i>dolya@yapomogayu.rf</a>
+          <p class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i>Ежедневно с 9:00 до 20:00</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-ink-700">
+      <p class="text-[0.78rem] leading-relaxed text-ink-400 max-w-[58rem]">
+        Информация на сайте носит справочный характер и не является публичной офертой или юридической консультацией по конкретному делу. Исход каждого дела зависит от его обстоятельств: мы не гарантируем определённый результат, конкретные сроки или цену продажи доли. Ссылки на нормы права: статьи 244–255 Гражданского кодекса РФ.
+      </p>
+      <p class="mt-4 text-[0.78rem] text-ink-400">© 2003–2026 ЯПомогаю.рф. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+
+  // Мобильное меню
+  const burger = document.getElementById('burger');
+  const mobMenu = document.getElementById('mobMenu');
+  burger.addEventListener('click', () => mobMenu.classList.toggle('open'));
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
+
+  // Аккордеон FAQ
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Форма заявки
+  const form = document.getElementById('leadForm');
+  const success = document.getElementById('formSuccess');
+  const errBox = document.getElementById('formError');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const agree = document.getElementById('f-agree').checked;
+
+    errBox.classList.add('hidden');
+    errBox.textContent = '';
+
+    if (!name || !phone) {
+      errBox.textContent = 'Пожалуйста, укажите имя и телефон, чтобы мы могли с вами связаться.';
+      errBox.classList.remove('hidden');
+      return;
+    }
+    if (!/^[\d\s()+\-]{10,18}$/.test(phone)) {
+      errBox.textContent = 'Проверьте номер телефона: похоже, в нём опечатка.';
+      errBox.classList.remove('hidden');
+      return;
+    }
+    if (!agree) {
+      errBox.textContent = 'Для отправки заявки нужно согласие на обработку персональных данных.';
+      errBox.classList.remove('hidden');
+      return;
+    }
+
+    form.classList.add('hidden');
+    success.classList.remove('hidden');
+    lucide.createIcons();
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>
